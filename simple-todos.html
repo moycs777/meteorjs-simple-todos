@@ -1,0 +1,45 @@
+<head>
+  <title>Lista de tareas</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Lista de Tareas</h1>
+
+      <label class="hide-completed">
+      		
+      		<input type="checkbox" checked="{{hideCompleted}}" />
+  			Esconder tareas no completadas
+  			{{> loginButtons}}
+  			ususario: {{currentUser.username}}
+		</label>
+
+	  <!-- solo usuarios logeados pueden agregar tareas -->
+      {{#if currentUser}}
+      <form class="new-task">
+      	<input type="text" name="text" placeholder="Escribe tu nueva tarea y teclea Enter" />      	
+      </form> <br/>
+      {{/if}}
+
+      <h1>Tareas incompletas ({{incompleteCount}})</h1>
+    </header>
+
+    <!-- Aqui se muestran las tareas -->
+    <ul>
+      {{#each tasks}}
+        {{> task}}
+      {{/each}}
+    </ul>
+  </div>
+</body>
+
+<template name="task">
+   <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+
+    <span class="text">{{text}} - <strong>{{username}} </strong>  </span>
+  </li>
+</template>
